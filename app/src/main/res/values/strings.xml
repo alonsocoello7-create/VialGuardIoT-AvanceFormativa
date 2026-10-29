@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">VialGuard IoT</string>
+    <string name="header_home_title">Monitoreo de estructuras viales</string>
+    <string name="header_home_desc">Revisa el estado de puentes y carreteras y recibe alertas cuando una requiere inspección o cierre.</string>
+    <string name="search_hint">Buscar puente o carretera</string>
+    <string name="status_habilitado">Habilitado</string>
+    <string name="status_inspeccion">Inspección</string>
+    <string name="status_cortado">Cortado</string>
+    <string name="status_sindatos">Sin datos</string>
+    <string name="section_recently_viewed">Vistos recientemente</string>
+    <string name="tab_inicio">Inicio</string>
+    <string name="tab_estado">Estado</string>
+    <string name="tab_historial">Historial</string>
+</resources>
