@@ -15,7 +15,7 @@ Esta carpeta es el proyecto que corresponde al alcance acordado para la formativ
 2. Para revisar el código, abrir la carpeta `VialGuardIoT_AvanceFormativa` en Android Studio y esperar la sincronización de Gradle. Para probar el APK ya construido, copiarlo a un teléfono de prueba e instalarlo.
 3. En la primera apertura, crear una cuenta local. Pueden usar `operador` como nombre; elijan una contraseña de prueba de al menos diez caracteres con letras y números. No existe una contraseña predefinida.
 4. Recorrer las pantallas, probar búsqueda y filtros y cerrar sesión. Seguir después la lista de pruebas de `RUBRICA_Y_PRUEBAS.md`.
-5. Tomar capturas reales de acceso, Inicio, Estado y Detalle, y registrar los resultados reales de las pruebas de seguridad. Revisar los ajustes con el docente.
+5. Revisar `evidencias/` y `RESULTADOS_PRUEBAS.md`: contienen capturas reales del emulador y resultados registrados. Repetir la demostración en el teléfono de clase y revisar los ajustes con el docente.
 
 ## Qué leer para explicar el trabajo
 
@@ -25,13 +25,14 @@ Esta carpeta es el proyecto que corresponde al alcance acordado para la formativ
 - `COMPARACION_EJEMPLO_PROFESOR.md`: relación con el ejemplo de clase, sin copiar funciones adicionales.
 - `VERIFICACION.txt`: comprobaciones realizadas sobre la compilación y el APK.
 - `REVISION_FINAL.md`: correcciones, limitaciones conocidas y pendientes antes de presentar.
+- `RESULTADOS_PRUEBAS.md` y `evidencias/`: pruebas y capturas reales en Android 14.
 
 ## Estado comprobado
 
-El APK compiló correctamente y se verificó su firma. Todavía no se ejecutó en un teléfono o emulador: la navegación y el comportamiento de la seguridad requieren esa comprobación. Las capturas y la aprobación del docente siguen pendientes. Esta entrega no acredita el cumplimiento final de toda la rúbrica.
+El APK compiló correctamente, se verificó su firma y se ejecutó en un emulador oficial Android 14. Se probaron navegación y controles de seguridad local y se guardaron capturas reales. Los resultados y límites están en `RESULTADOS_PRUEBAS.md`. La prueba en el teléfono de clase y la aprobación del docente siguen pendientes. Esta entrega no acredita el cumplimiento final de toda la rúbrica.
 
 El borrador separado llamado `VialGuardIoT_AvanceFirebase` corresponde a un alcance anterior y no es la versión de entrega. El proyecto original recibido se conserva sin cambios.
 
 ## Cómo pide entregar la guía
 
-La guía TI3042 indica subir a AAI un archivo de texto con un enlace a GitHub que contenga el código. El ZIP sirve para compartir y abrir este proyecto, pero no sustituye ese enlace. Todavía no se publicó este proyecto ni se dispone de un enlace verificado. Antes de subir la tarea, publicar el código de esta carpeta en el repositorio del estudiante y comprobar el acceso que tendrá el docente. No subir `.gradle`, `.idea`, `build` ni `local.properties`; el proyecto incluye un `.gitignore`.
+La guía TI3042 indica subir a AAI un archivo de texto con un enlace a GitHub que contenga el código. El proyecto se publicó como repositorio público, por elección del estudiante: https://github.com/alonsocoello7-create/VialGuardIoT-AvanceFormativa . El archivo `ENTREGA_AAI_VialGuard.txt`, junto al proyecto en el ZIP, contiene ese enlace y es el que se debe cargar en AAI. La carga en AAI debe realizarla el estudiante; no se ha presentado la tarea automáticamente. El repositorio excluye `.gradle`, `.idea`, `build` y `local.properties`.

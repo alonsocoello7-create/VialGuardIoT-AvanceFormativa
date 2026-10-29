@@ -31,7 +31,7 @@ Se conservaron los colores y la tipografía del proyecto recibido. `MainActivity
 3. En la primera apertura, crear una cuenta local. El nombre sugerido es `operador`; la contraseña la elige el usuario y debe cumplir la política mostrada. No existe una contraseña predefinida.
 4. Recorrer Inicio, Estado y Detalle. Probar la búsqueda, los filtros y Cerrar sesión.
 5. Cerrar sesión y comprobar contraseña incorrecta y correcta. Probar cinco intentos incorrectos, esperar un minuto y verificar que permita reintentar. No usar datos ni contraseñas reales para la demostración académica.
-6. Obtener capturas de la app ejecutándose. Esas capturas deben ser reales; no se incluyen capturas inventadas. Las pruebas en teléfono se deben registrar como realizadas solo después de ejecutarlas.
+6. Revisar las capturas reales del emulador en `evidencias/` y `RESULTADOS_PRUEBAS.md`. Repetir la demostración en el teléfono que se utilizará en clase.
 
 El archivo `local.properties`, si existe en la copia de trabajo, corresponde al SDK instalado en el computador de preparación. No se incluye en el paquete compartible. Android Studio debe crear su propio archivo para el SDK del equipo que abra el proyecto.
 
@@ -41,4 +41,6 @@ Se conserva Kotlin 1.9.24 y la configuración Compose recibida. Se fija Firebase
 
 ## Alcance de la evaluación
 
-La guía general contempla una aplicación con interacción entre dos Android. Para esta formativa, la última aclaración del estudiante exige seguridad implementada, bibliotecas Firebase y justificación de su uso, y Bluetooth/Wi-Fi solo explicados. Los controles de seguridad local están implementados en el código. Quedan pendientes las pruebas en teléfono, las capturas reales y la validación ante el docente. La comunicación real y los controles de seguridad de una futura integración en nube corresponden a una etapa posterior; no se declaran implementados ni demostrados.
+La guía general contempla una aplicación con interacción entre dos Android. Para esta formativa, el alcance acordado incluye seguridad implementada, bibliotecas Firebase y justificación de su uso, y Bluetooth/Wi-Fi solo explicados. El avance se ejecutó y se probó en un emulador oficial Android 14, con capturas reales y resultados en `RESULTADOS_PRUEBAS.md`. Quedan pendientes la comprobación en el teléfono de clase, la presentación y la validación ante el docente. La comunicación real y los controles de seguridad de una futura integración en nube corresponden a una etapa posterior; no se declaran implementados ni demostrados.
+
+Código publicado: https://github.com/alonsocoello7-create/VialGuardIoT-AvanceFormativa

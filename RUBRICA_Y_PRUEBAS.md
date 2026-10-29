@@ -9,15 +9,15 @@ La guía general contempla una solución completa. La entrega formativa se acota
 | 2.1.1.3 | Kotlin, Android Studio, Compose, Material 3 y ViewModel justificados. |
 | 2.1.1.4 | Propuesta documentada. Presentación y retroalimentación del docente pendientes. |
 | 2.1.2.5 | Wi-Fi, Bluetooth y MQTT comparados por cobertura, consumo y estabilidad, sin implementarlos. |
-| 2.1.2.6 | Bosquejo separado en MOCKUP_Y_NAVEGACION.md: acceso, Inicio, Estado, Detalle, interacciones y navegación. Capturas de ejecución y validación visual en Android pendientes. |
+| 2.1.2.6 | Bosquejo en MOCKUP_Y_NAVEGACION.md y capturas reales en evidencias/. Navegación revisada en emulador Android 14; validación con docente pendiente. |
 | 2.1.2.7 | Validación de UI y autenticación ante docente pendiente. |
 | 2.1.3.8 | Proyecto Kotlin compilado con assembleDebug. APK generado. |
 | 2.1.3.9 | Sin permisos de Bluetooth, localización ni exploración Wi-Fi innecesarios. INTERNET declarado para las bibliotecas Firebase. |
 | 2.1.3.10 | Cuenta local con PBKDF2 y sal, registro AES-GCM, Android Keystore, control de sesión y bloqueo temporal. Nube y evaluación completa ISO pendientes. |
-| 2.1.3.11 | Compilación comprobada. Pruebas de autenticación y seguridad en dispositivo pendientes. Comunicación IoT aún no implementada. |
+| 2.1.3.11 | Compilación y pruebas locales realizadas en emulador Android 14, registradas en RESULTADOS_PRUEBAS.md. Prueba en teléfono físico y comunicación IoT pendientes. |
 | 2.1.4.12 | Demostración en clase y comunicación entre dos Android pendientes. No se presentan como realizadas. |
 | 2.1.4.13 | Decisiones y límites explicados en el documento de la formativa. |
-| 2.1.4.14 | Controles locales identificables en código; evidencia de su ejecución en dispositivo pendiente. |
+| 2.1.4.14 | Controles locales en código, pruebas y capturas reales del emulador. Demostración ante docente y seguridad de una comunicación futura pendientes. |
 | 2.1.4.15 | Preguntas, retroalimentación y ajustes finales con el docente pendientes. |
 
 ## Verificación realizada
@@ -25,6 +25,8 @@ La guía general contempla una solución completa. La entrega formativa se acota
 La compilación `:app:assembleDebug` terminó con BUILD SUCCESSFUL. El aviso de versiones de XML del SDK no impidió la compilación. Se conserva Android Gradle Plugin 8.4.1 y Kotlin 1.9.24 del proyecto recibido, usando Gradle 8.6.
 
 Compilar confirma que se pudo construir el APK; no sustituye la ejecución de la app ni valida por sí solo el comportamiento de Android Keystore. No se generaron capturas falsas ni se declaró una conexión Firebase activa.
+
+Además de compilar, se ejecutó la app en un emulador oficial Android 14. Se probaron acceso y navegación y se comprobó el registro cifrado. Los resultados, las correcciones y las limitaciones están en `RESULTADOS_PRUEBAS.md`. La siguiente lista sirve para repetir la comprobación en el teléfono de clase.
 
 ## Pruebas para el teléfono
 

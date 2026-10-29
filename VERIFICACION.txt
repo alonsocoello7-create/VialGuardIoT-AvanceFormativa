@@ -1,9 +1,10 @@
 Compilacion: :app:assembleDebug -> BUILD SUCCESSFUL
 Firma APK: verificada con apksigner, esquema v2.
 ApplicationId: cl.inacap.vialguard; minSdk 24; targetSdk 34.
-APK SHA-256: 59301896f964e44041ee58a706258e1c6aef2bc0d9ef99969b894e6ab0d02573
+APK SHA-256: 50abe8aeed93dd6bc7db9a82e7e0281c101651e0fe1e9af7fd628725840c2008
 Revision estatica: seguridad local presente; sin password predefinida; sin sockets, Bluetooth ni operaciones Firebase.
 SDK Firebase: Authentication, Firestore y Realtime Database agregados.
 Android Lint: 0 errors, 48 warnings; BUILD SUCCESSFUL.
 Reglas explicitas excluyen SharedPreferences de cloud-backup y device-transfer en Android 12+.
-No se ejecuto la app en telefono o emulador; las pruebas de interfaz y Keystore siguen pendientes.
+Ejecucion: emulador oficial Android 14 API 34 x86_64; acceso, navegacion y controles locales probados.
+Capturas reales en evidencias/; detalle en RESULTADOS_PRUEBAS.md. Prueba en telefono fisico y validacion docente pendientes.

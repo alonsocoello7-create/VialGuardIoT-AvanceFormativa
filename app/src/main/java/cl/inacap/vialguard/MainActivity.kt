@@ -54,7 +54,10 @@ private fun AvanceApp(vm: AvanceViewModel = viewModel()) {
                 OutlinedTextField(value = s.username, onValueChange = vm::username, label = { Text("Usuario de demostración") }, singleLine = true, modifier = Modifier.fillMaxWidth())
                 OutlinedTextField(value = s.password, onValueChange = vm::password, label = { Text("Contraseña") },
                     singleLine = true, visualTransformation = PasswordVisualTransformation(), modifier = Modifier.fillMaxWidth())
-                Button(onClick = vm::login, enabled = !s.busy) { Text(if (s.accountExists) "Iniciar sesión" else "Crear cuenta local") }
+                Button(onClick = vm::login, enabled = !s.busy) {
+                    Text(if (s.accountExists) "Iniciar sesión" else "Crear cuenta local",
+                        color = MaterialTheme.colorScheme.onPrimary)
+                }
                 Text("Credenciales protegidas localmente. Firebase queda pendiente de integración.")
             } else {
                 Text("Sesión: ${s.currentUser}")

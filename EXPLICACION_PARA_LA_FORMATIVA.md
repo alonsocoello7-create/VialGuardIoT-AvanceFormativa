@@ -53,7 +53,7 @@ Las pruebas en dispositivo deben comprobar rechazo de credenciales incorrectas, 
 
 Presentar el problema y las pantallas del avance, explicar las bibliotecas agregadas y el flujo de comunicación previsto. Mostrar las funcionalidades locales ejecutándose y responder qué partes aún no están conectadas. Registrar la retroalimentación real del docente y realizar los ajustes que indique. La revisión y la aceptación del docente no se inventan.
 
-La guía general pide interacción entre dos Android, pruebas de conectividad y evidencia de seguridad. La última aclaración del estudiante exige seguridad implementada y deja Bluetooth y Wi-Fi como explicación. Se cumple ese alcance en el código del avance; la ejecución y la evidencia en dispositivo deben verificarse antes de declararlas demostradas. La conectividad entre Android sigue pendiente para la etapa correspondiente.
+La guía general pide interacción entre dos Android, pruebas de conectividad y evidencia de seguridad. El alcance acordado exige seguridad implementada y deja Bluetooth y Wi-Fi como explicación. La app se ejecutó en un emulador oficial Android 14; las capturas reales y las pruebas de acceso y navegación están en `evidencias/` y `RESULTADOS_PRUEBAS.md`. La prueba en el teléfono de clase y la conectividad entre Android siguen pendientes. La validación del docente no se declara realizada.
 
 ## Referencias
 

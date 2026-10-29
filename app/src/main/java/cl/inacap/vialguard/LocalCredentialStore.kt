@@ -73,6 +73,9 @@ class LocalCredentialStore(context: Context) {
     }
 
     fun login(username: String, password: String): Result<String> = runCatching {
+        require(username.trim().isNotEmpty() && password.isNotEmpty()) {
+            "Ingresa tu usuario y contraseña."
+        }
         val record = read() // Un registro corrupto o una clave perdida impiden el acceso.
         check(System.currentTimeMillis() >= record.getLong("lockedUntil")) {
             "Acceso bloqueado temporalmente. Espera un minuto e intenta de nuevo."

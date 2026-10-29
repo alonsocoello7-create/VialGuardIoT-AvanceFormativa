@@ -17,7 +17,7 @@ El enfoque de VialGuard es coherente con el ejercicio de clase: Kotlin, Compose,
 | Actualización | Propone emisiones periódicas cada tres segundos, con partes incompletas | No hay actualización periódica ni telemetría real en este avance |
 | Firebase | No aparece en las dependencias o fuentes revisadas | Authentication, Firestore y Realtime Database agregados como bibliotecas, sin conexión activa |
 | Seguridad | No hay autenticación ni cifrado implementados en las fuentes revisadas | Cuenta local, PBKDF2 con sal, registro cifrado AES-GCM, Android Keystore y limitación de intentos |
-| Evidencia de compilación | No se compiló en esta revisión | Nuestro APK ya compiló y su firma se verificó. Las pruebas en teléfono siguen pendientes |
+| Evidencia de compilación | No se compiló en esta revisión | Nuestro APK compiló, su firma se verificó y se probó en emulador Android 14. La prueba en teléfono físico sigue pendiente |
 
 ## Qué podemos aprovechar
 
