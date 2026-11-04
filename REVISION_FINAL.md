@@ -1,6 +1,6 @@
 # Revisión final del avance
 
-> **Nota del 3 de noviembre de 2026:** esta revisión corresponde a la versión formativa del 28 de octubre. Desde entonces la app tiene comunicación entre dos Android por Wi-Fi local, con sockets TCP y canal cifrado, y su `minSdk` pasó a 26. Las afirmaciones sobre la ausencia de sockets o de comunicación entre teléfonos ya no aplican. El estado actual está en `README.md`, `ENLACE_WIFI.md` y `RESULTADOS_PRUEBAS.md`.
+> **Nota del 3 de noviembre de 2026:** esta revisión corresponde a la versión formativa del 28 de octubre. Desde entonces la app tiene comunicación entre dos Android por Wi-Fi local, con sockets TCP y canal cifrado, y su `minSdk` pasó a 26. Las afirmaciones sobre la ausencia de sockets o de comunicación entre teléfonos ya no aplican. El estado actual está en `README.md`, `claude_ENLACE_WIFI.md` y `RESULTADOS_PRUEBAS.md`.
 
 Se contrastaron el código, el manifiesto, Gradle y la documentación con la guía TI3042 y la guía Firebase entregadas. La revisión distingue el alcance acordado para este avance de los requisitos generales del proyecto completo.
 

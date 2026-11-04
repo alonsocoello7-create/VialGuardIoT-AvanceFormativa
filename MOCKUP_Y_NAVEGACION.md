@@ -162,4 +162,4 @@ Distancia / Variación / Inclinación
 - **Cuenta y sesión:** la cuenta local se conserva; la sesión solo vive en memoria.
 - **Recuperación de contraseña:** no existe en este avance.
 - **Lecturas simuladas:** las genera el teléfono estación con los deslizadores. El ESP32 todavía no transmite a la app.
-- **Más detalles:** el protocolo, las reglas y los límites del enlace están en `ENLACE_WIFI.md`.
+- **Más detalles:** el protocolo, las reglas y los límites del enlace están en `claude_ENLACE_WIFI.md`.

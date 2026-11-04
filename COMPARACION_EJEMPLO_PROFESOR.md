@@ -1,6 +1,6 @@
 # Comparación con Ejemplo02 del profesor
 
-> **Nota del 3 de noviembre de 2026:** esta comparación se hizo sobre la versión formativa, en la que Bluetooth y Wi-Fi solo se explicaban. La versión actual agrega comunicación entre dos Android por Wi-Fi local (ver `ENLACE_WIFI.md` y `RESULTADOS_PRUEBAS.md`).
+> **Nota del 3 de noviembre de 2026:** esta comparación se hizo sobre la versión formativa, en la que Bluetooth y Wi-Fi solo se explicaban. La versión actual agrega comunicación entre dos Android por Wi-Fi local (ver `claude_ENLACE_WIFI.md` y `RESULTADOS_PRUEBAS.md`).
 
 Se revisó estáticamente el código fuente de Ejemplo02.zip entregado por el estudiante, sin ejecutar ni modificar el ejemplo. La comparación corresponde a VialGuardIoT_AvanceFormativa, con seguridad local implementada, Firebase como bibliotecas y justificación, y Bluetooth/Wi-Fi como explicación.
 

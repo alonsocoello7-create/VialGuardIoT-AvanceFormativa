@@ -14,15 +14,15 @@ La tabla resume la evidencia de cada criterio. No acredita por sí sola el cumpl
 | 2.1.1.2 | Funciones: acceso local, Inicio, Estado, Detalle, búsqueda, filtros y Enlace (monitor con órdenes e historial; estación con sensores simulados). Las funciones futuras se presentan aparte. |
 | 2.1.1.3 | Se justifican Kotlin, Android Studio, Compose, Material 3, ViewModel y sockets TCP con la criptografía de Android. |
 | 2.1.1.4 | La propuesta está documentada. Faltan la presentación y la retroalimentación del docente. |
-| 2.1.2.5 | Se eligió Wi-Fi local frente a Firebase, Bluetooth y MQTT, comparando distancia, consumo y estabilidad con valores típicos y su fuente (`ENLACE_WIFI.md` y `EXPLICACION_PARA_LA_FORMATIVA.md`). |
+| 2.1.2.5 | Se eligió Wi-Fi local frente a Firebase, Bluetooth y MQTT, comparando distancia, consumo y estabilidad con valores típicos y su fuente (`claude_ENLACE_WIFI.md` y `EXPLICACION_PARA_LA_FORMATIVA.md`). |
 | 2.1.2.6 | Bosquejo con la pestaña Enlace en `MOCKUP_Y_NAVEGACION.md` y capturas reales de la versión con enlace en `evidencias/` (14 a 33). Falta la validación del docente. |
 | 2.1.2.7 | Falta validar la interfaz y la autenticación ante el docente. |
 | 2.1.3.8 | El proyecto Kotlin compila y aprueba 25 pruebas unitarias de las reglas de alarma, el canal cifrado y el enlace por TCP. |
 | 2.1.3.9 | El manifiesto de la app declara solo INTERNET, que usa el enlace. No pide permisos de Bluetooth, ubicación ni exploración Wi-Fi. Las bibliotecas Firebase y AndroidX agregan otros permisos al APK por fusión de manifiestos; ver `README.md`. |
 | 2.1.3.10 | Controles: cuenta local con PBKDF2 y sal, registro AES-GCM con Android Keystore, bloqueo temporal, y un canal del enlace con ECDH, PBKDF2 y AES-GCM que se bloquea tras 5 códigos erróneos. Falta una evaluación completa de ISO/IEC 27400. |
 | 2.1.3.11 | `RESULTADOS_PRUEBAS.md` registra las pruebas de acceso (28 de octubre) y las del enlace en dos emuladores (3 y 4 de noviembre). Un defecto de contraste encontrado se corrigió y se volvió a probar. Faltan los teléfonos físicos. |
-| 2.1.4.12 | Falta la demostración en clase con dos teléfonos. `ENLACE_WIFI.md` tiene el guion. |
-| 2.1.4.13 | Las decisiones y sus límites se explican en `EXPLICACION_PARA_LA_FORMATIVA.md` y `ENLACE_WIFI.md`. |
+| 2.1.4.12 | Falta la demostración en clase con dos teléfonos. `claude_ENLACE_WIFI.md` tiene el guion. |
+| 2.1.4.13 | Las decisiones y sus límites se explican en `EXPLICACION_PARA_LA_FORMATIVA.md` y `claude_ENLACE_WIFI.md`. |
 | 2.1.4.14 | Hay controles en el código, pruebas unitarias del canal (mensaje alterado, repetido, código incorrecto y ausencia de texto en claro) y capturas de código rechazado y de receptor bloqueado. Falta la demostración ante el docente. |
 | 2.1.4.15 | Faltan las preguntas, la retroalimentación y los ajustes finales con el docente. |
 

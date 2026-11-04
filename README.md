@@ -21,7 +21,7 @@ Las lecturas son simuladas y el ESP32 todavía no transmite a la app. El acceso 
 - **Reconexión:** si se corta el enlace, la estación reconecta sola.
 - **Sesión:** cerrar sesión detiene el enlace.
 
-`ENLACE_WIFI.md` explica el protocolo, por qué se eligió Wi-Fi local y no Firebase, Bluetooth ni MQTT, los límites de seguridad y de uso y cómo hacer la demostración con dos teléfonos o dos emuladores.
+`claude_ENLACE_WIFI.md` explica el protocolo, por qué se eligió Wi-Fi local y no Firebase, Bluetooth ni MQTT, los límites de seguridad y de uso y cómo hacer la demostración con dos teléfonos o dos emuladores.
 
 ## Seguridad implementada
 
@@ -57,7 +57,7 @@ Las lecturas son simuladas y el ESP32 todavía no transmite a la app. El acceso 
 - **APK final:** por fusión de manifiestos incluye además ACCESS_NETWORK_STATE y READ_GSERVICES, que agregan las bibliotecas Firebase, y un permiso interno de AndroidX para receptores no exportados.
 - **Sin otros permisos:** no se piden permisos de Bluetooth, ubicación ni exploración Wi-Fi.
 
-Son controles concretos del prototipo, no una certificación de cumplimiento de ISO/IEC 27400. No hay roles: cualquier usuario con sesión en el monitor puede enviar órdenes, y el historial registra quién las envió. En `ENLACE_WIFI.md` se explican los límites del canal: no hay certificados y el código tiene unos 40 bits.
+Son controles concretos del prototipo, no una certificación de cumplimiento de ISO/IEC 27400. No hay roles: cualquier usuario con sesión en el monitor puede enviar órdenes, y el historial registra quién las envió. En `claude_ENLACE_WIFI.md` se explican los límites del canal: no hay certificados y el código tiene unos 40 bits.
 
 ## Firebase en esta entrega
 
@@ -88,7 +88,7 @@ Son controles concretos del prototipo, no una certificación de cumplimiento de 
 1. **Proyecto:** abrir esta carpeta en Android Studio y sincronizar Gradle.
 2. **Cuenta:** instalar la app en un teléfono con Android 8 o superior y, en la primera apertura, crear una cuenta local. El nombre sugerido es `operador`; la contraseña debe cumplir la política que se muestra y no hay una contraseña predefinida.
 3. **Recorrido local:** pasar por Inicio, Estado y Detalle. Probar la búsqueda, los filtros y Cerrar sesión.
-4. **Enlace:** seguir «Demostración con dos teléfonos» de `ENLACE_WIFI.md`. Los teléfonos deben estar en la misma red; si el Wi-Fi del instituto aísla a los clientes, usar el hotspot de uno de ellos.
+4. **Enlace:** seguir «Demostración con dos teléfonos» de `claude_ENLACE_WIFI.md`. Los teléfonos deben estar en la misma red; si el Wi-Fi del instituto aísla a los clientes, usar el hotspot de uno de ellos.
 5. **Pruebas unitarias:** ejecutar `gradlew testDebugUnitTest`.
 6. **Evidencias:** revisar las capturas de `evidencias/` y `RESULTADOS_PRUEBAS.md`, y repetir la demostración en los teléfonos de clase.
 

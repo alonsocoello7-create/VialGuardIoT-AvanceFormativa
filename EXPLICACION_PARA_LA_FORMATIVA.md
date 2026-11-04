@@ -41,7 +41,7 @@ Los sensores se conectan por cables al ESP32: el HC-SR04 usa TRIG y ECHO, y el M
 3. **Estación:** se conecta con esos datos y envía una lectura simulada por segundo.
 4. **Respuesta:** el monitor responde a cada lectura con un latido y puede enviar las órdenes «Reconocer alarma» y «Recalibrar».
 
-El enlace no necesita Internet. `ENLACE_WIFI.md` detalla el protocolo, los tiempos y las reglas.
+El enlace no necesita Internet. `claude_ENLACE_WIFI.md` detalla el protocolo, los tiempos y las reglas.
 
 **Conceptos:**
 
@@ -120,7 +120,7 @@ Esa configuración quedó adelantada, pero no demuestra que la app ya se conecte
 - Reconocer una alarma no la apaga.
 - Recalibrar se rechaza durante una alarma.
 
-Los detalles están en `LocalCredentialStore.kt`, `AvanceViewModel.kt`, `SecureChannel.kt` y `ENLACE_WIFI.md`.
+Los detalles están en `LocalCredentialStore.kt`, `AvanceViewModel.kt`, `SecureChannel.kt` y `claude_ENLACE_WIFI.md`.
 
 **Límites:**
 

@@ -19,14 +19,14 @@ Esta carpeta contiene el proyecto Android de la Unidad 2, versión `0.3-enlace`.
 1. **Revisar el código:** abrir esta carpeta en Android Studio y esperar la sincronización de Gradle.
 2. **Probar la app:** instalar el APK en dos teléfonos de prueba con Android 8 o superior. No instalar en el mismo teléfono la app anterior `VialGuard.apk`, porque comparten paquete.
 3. **Crear las cuentas:** en la primera apertura de cada teléfono, crear una cuenta local con una contraseña de al menos diez caracteres, con letras y números. No hay contraseña predefinida.
-4. **Probar el enlace:** seguir «Demostración con dos teléfonos» de `ENLACE_WIFI.md` y después la lista de `RUBRICA_Y_PRUEBAS.md`.
+4. **Probar el enlace:** seguir «Demostración con dos teléfonos» de `claude_ENLACE_WIFI.md` y después la lista de `RUBRICA_Y_PRUEBAS.md`.
 5. **Revisar las evidencias:** `evidencias/` y `RESULTADOS_PRUEBAS.md` tienen las capturas y los resultados reales. Antes de la clase, repetir la demostración en los teléfonos que se usarán.
 
 ## Qué leer para explicar el trabajo
 
 | Archivo | Contenido |
 |---|---|
-| `ENLACE_WIFI.md` | Protocolo del enlace, por qué Wi-Fi local, límites de seguridad y de uso, y demostración |
+| `claude_ENLACE_WIFI.md` | Protocolo del enlace, por qué Wi-Fi local, límites de seguridad y de uso, y demostración |
 | `EXPLICACION_PARA_LA_FORMATIVA.md` | Problemática, herramientas, Firebase, conexiones y seguridad |
 | `RUBRICA_Y_PRUEBAS.md` | Correspondencia con los quince criterios y pruebas para los teléfonos |
 | `MOCKUP_Y_NAVEGACION.md` | Bosquejo de pantallas, incluida la pestaña Enlace |
