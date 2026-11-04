@@ -1,42 +1,69 @@
 # Correspondencia del avance con la rúbrica
 
-La guía general contempla una solución completa. La entrega formativa se acota conforme a la última aclaración del estudiante: avance local funcional, seguridad implementada, bibliotecas Firebase agregadas y conectividad explicada. Esto no acredita por sí solo el cumplimiento final de todos los criterios.
+La guía de la unidad pide una aplicación que permita interactuar al menos a dos dispositivos Android por Wi-Fi o Bluetooth. Esta versión incluye:
 
-| Criterio | Evidencia del avance y pendiente |
+- acceso local y consulta de estructuras de ejemplo, con seguridad implementada;
+- bibliotecas Firebase, que todavía no se usan;
+- un enlace Wi-Fi entre dos Android, en el que un teléfono hace de monitor y el otro de estación.
+
+La tabla resume la evidencia de cada criterio. No acredita por sí sola el cumplimiento final, que depende de la presentación y de la evaluación del docente.
+
+| Criterio | Evidencia y pendientes |
 |---|---|
-| 2.1.1.1 | Problemática vial y sensores/ESP32/Android identificados en la explicación. |
-| 2.1.1.2 | Login local, Inicio, Estado, Detalle, búsqueda y filtros. Funciones futuras separadas. |
-| 2.1.1.3 | Kotlin, Android Studio, Compose, Material 3 y ViewModel justificados. |
-| 2.1.1.4 | Propuesta documentada. Presentación y retroalimentación del docente pendientes. |
-| 2.1.2.5 | Wi-Fi, Bluetooth y MQTT comparados por cobertura, consumo y estabilidad, sin implementarlos. |
-| 2.1.2.6 | Bosquejo en MOCKUP_Y_NAVEGACION.md y capturas reales en evidencias/. Navegación revisada en emulador Android 14; validación con docente pendiente. |
-| 2.1.2.7 | Validación de UI y autenticación ante docente pendiente. |
-| 2.1.3.8 | Proyecto Kotlin compilado con assembleDebug. APK generado. |
-| 2.1.3.9 | Sin permisos de Bluetooth, localización ni exploración Wi-Fi innecesarios. INTERNET declarado para las bibliotecas Firebase. |
-| 2.1.3.10 | Cuenta local con PBKDF2 y sal, registro AES-GCM, Android Keystore, control de sesión y bloqueo temporal. Nube y evaluación completa ISO pendientes. |
-| 2.1.3.11 | Compilación y pruebas locales realizadas en emulador Android 14, registradas en RESULTADOS_PRUEBAS.md. Prueba en teléfono físico y comunicación IoT pendientes. |
-| 2.1.4.12 | Demostración en clase y comunicación entre dos Android pendientes. No se presentan como realizadas. |
-| 2.1.4.13 | Decisiones y límites explicados en el documento de la formativa. |
-| 2.1.4.14 | Controles locales en código, pruebas y capturas reales del emulador. Demostración ante docente y seguridad de una comunicación futura pendientes. |
-| 2.1.4.15 | Preguntas, retroalimentación y ajustes finales con el docente pendientes. |
+| 2.1.1.1 | La problemática vial, los sensores, el ESP32 y los dos teléfonos están identificados en `EXPLICACION_PARA_LA_FORMATIVA.md`. |
+| 2.1.1.2 | Funciones: acceso local, Inicio, Estado, Detalle, búsqueda, filtros y Enlace (monitor con órdenes e historial; estación con sensores simulados). Las funciones futuras se presentan aparte. |
+| 2.1.1.3 | Se justifican Kotlin, Android Studio, Compose, Material 3, ViewModel y sockets TCP con la criptografía de Android. |
+| 2.1.1.4 | La propuesta está documentada. Faltan la presentación y la retroalimentación del docente. |
+| 2.1.2.5 | Se eligió Wi-Fi local frente a Firebase, Bluetooth y MQTT, comparando distancia, consumo y estabilidad con valores típicos y su fuente (`ENLACE_WIFI.md` y `EXPLICACION_PARA_LA_FORMATIVA.md`). |
+| 2.1.2.6 | Bosquejo con la pestaña Enlace en `MOCKUP_Y_NAVEGACION.md` y capturas reales de la versión con enlace en `evidencias/` (14 a 33). Falta la validación del docente. |
+| 2.1.2.7 | Falta validar la interfaz y la autenticación ante el docente. |
+| 2.1.3.8 | El proyecto Kotlin compila y aprueba 25 pruebas unitarias de las reglas de alarma, el canal cifrado y el enlace por TCP. |
+| 2.1.3.9 | El manifiesto de la app declara solo INTERNET, que usa el enlace. No pide permisos de Bluetooth, ubicación ni exploración Wi-Fi. Las bibliotecas Firebase y AndroidX agregan otros permisos al APK por fusión de manifiestos; ver `README.md`. |
+| 2.1.3.10 | Controles: cuenta local con PBKDF2 y sal, registro AES-GCM con Android Keystore, bloqueo temporal, y un canal del enlace con ECDH, PBKDF2 y AES-GCM que se bloquea tras 5 códigos erróneos. Falta una evaluación completa de ISO/IEC 27400. |
+| 2.1.3.11 | `RESULTADOS_PRUEBAS.md` registra las pruebas de acceso (28 de octubre) y las del enlace en dos emuladores (3 y 4 de noviembre). Un defecto de contraste encontrado se corrigió y se volvió a probar. Faltan los teléfonos físicos. |
+| 2.1.4.12 | Falta la demostración en clase con dos teléfonos. `ENLACE_WIFI.md` tiene el guion. |
+| 2.1.4.13 | Las decisiones y sus límites se explican en `EXPLICACION_PARA_LA_FORMATIVA.md` y `ENLACE_WIFI.md`. |
+| 2.1.4.14 | Hay controles en el código, pruebas unitarias del canal (mensaje alterado, repetido, código incorrecto y ausencia de texto en claro) y capturas de código rechazado y de receptor bloqueado. Falta la demostración ante el docente. |
+| 2.1.4.15 | Faltan las preguntas, la retroalimentación y los ajustes finales con el docente. |
 
 ## Verificación realizada
 
-La compilación `:app:assembleDebug` terminó con BUILD SUCCESSFUL. El aviso de versiones de XML del SDK no impidió la compilación. Se conserva Android Gradle Plugin 8.4.1 y Kotlin 1.9.24 del proyecto recibido, usando Gradle 8.6.
+Se compiló con JDK 17, Gradle 8.6 y Android Gradle Plugin 8.4.1.
 
-Compilar confirma que se pudo construir el APK; no sustituye la ejecución de la app ni valida por sí solo el comportamiento de Android Keystore. No se generaron capturas falsas ni se declaró una conexión Firebase activa.
+- **Pruebas unitarias:** pasaron las 25.
+- **APK:** se generó y se firmó con la clave de depuración.
+- **Android Lint:** terminó sin errores.
 
-Además de compilar, se ejecutó la app en un emulador oficial Android 14. Se probaron acceso y navegación y se comprobó el registro cifrado. Los resultados, las correcciones y las limitaciones están en `RESULTADOS_PRUEBAS.md`. La siguiente lista sirve para repetir la comprobación en el teléfono de clase.
+`VERIFICACION.txt` tiene las cifras de la última compilación.
 
-## Pruebas para el teléfono
+El enlace se probó con dos emuladores oficiales de Android 14. Los resultados, las capturas y los límites de esa prueba están en `RESULTADOS_PRUEBAS.md`.
 
-1. Instalar el APK de avance en un dispositivo de prueba. El applicationId coincide con el original; si Android informa conflicto de firma, no desinstalar una app con datos importantes sin conservarlos primero.
-2. Crear una cuenta local con contraseña de al menos diez caracteres, letras y números. Confirmar que una contraseña corta no permita crearla.
-3. Recorrer Inicio, Estado, búsqueda, filtros y Detalle.
-4. Cerrar sesión y confirmar que las pantallas privadas vuelvan a requerir acceso.
-5. Intentar una contraseña incorrecta y verificar rechazo. Probar la correcta.
-6. Tras cinco intentos incorrectos, comprobar bloqueo por un minuto; después, volver a probar la contraseña correcta.
-7. Cerrar y volver a abrir el proceso para comprobar que la cuenta se conserva y que no entra automáticamente sin autenticar.
-8. Documentar el resultado real y tomar las capturas solicitadas por el docente. Si algo falla, registrar y corregirlo antes de la demostración.
+Compilar y probar en emuladores no reemplaza la prueba en los teléfonos de clase, que se describe a continuación.
 
-No existe una contraseña predefinida y no se utiliza una cuenta de Firebase para este acceso local. Los estados y lecturas de estructuras son ejemplos académicos.
+## Pruebas para los teléfonos
+
+1. **Instalación:** instalar el APK en dos teléfonos con Android 8 o superior. Si el teléfono tiene otra app con el paquete `cl.inacap.vialguard` (por ejemplo, `VialGuard.apk` de la versión «lot»), Android rechazará la instalación por firma distinta. No desinstalar una app con datos importantes sin respaldarlos.
+2. **Cuenta:** crear una cuenta local en cada teléfono. Comprobar que se rechaza una contraseña corta.
+3. **Recorrido local:** pasar por Inicio, Estado, la búsqueda, los filtros y Detalle.
+4. **Sesión:**
+   1. Cerrar sesión y confirmar que las pantallas privadas vuelven a pedir acceso.
+   2. Probar una contraseña incorrecta y luego la correcta.
+   3. Con cinco intentos incorrectos, comprobar el bloqueo de un minuto.
+5. **Red:** conectar ambos teléfonos a la misma red. Si el Wi-Fi del instituto aísla a los clientes, usar el hotspot de uno de ellos.
+6. **Vincular:**
+   1. En el teléfono A: Enlace → Monitor → Iniciar receptor.
+   2. En el teléfono B: Enlace → Estación, escribir la IP y el código de A y pulsar Conectar.
+7. **Estados y órdenes:**
+   1. Mover la distancia a unos 88 cm para ver Precaución y a unos 80 cm para ver Alarma.
+   2. Pulsar Reconocer y comprobar que la alarma sigue activa.
+   3. Comprobar que Recalibrar está deshabilitado durante la alarma.
+   4. Volver a 100 cm y esperar los 30 s.
+8. **Falla:** activar «Simular falla de sensor» en B y comprobar la alarma en A.
+9. **Corte:** apagar el Wi-Fi de B. Comprobar que A muestra «Última lectura guardada… Estado actual desconocido» y que B reconecta sola al volver la red.
+10. **Códigos:**
+    1. Probar un código incorrecto en B y comprobar el rechazo.
+    2. Con cinco intentos incorrectos, comprobar que A detiene el receptor.
+    3. Iniciar el receptor de nuevo y comprobar que muestra otro código.
+11. **Registro:** anotar el resultado real y tomar las capturas que pida el docente. Si algo falla, registrarlo y corregirlo antes de la demostración.
+
+No existe una contraseña predefinida y no se usa una cuenta de Firebase. Los estados de Inicio, Estado y Detalle son ejemplos; las lecturas del enlace las simula la estación.

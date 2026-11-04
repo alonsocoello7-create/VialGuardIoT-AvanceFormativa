@@ -1,7 +1,6 @@
 package cl.inacap.vialguard
 
 import android.content.Context
-import android.os.Build
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import android.util.Base64
@@ -64,7 +63,7 @@ class LocalCredentialStore(context: Context) {
             "Usa al menos 10 caracteres, incluyendo letras y números."
         }
         val salt = ByteArray(32).also { SecureRandom().nextBytes(it) }
-        val algorithm = if (Build.VERSION.SDK_INT >= 26) "PBKDF2WithHmacSHA256" else "PBKDF2WithHmacSHA1"
+        val algorithm = "PBKDF2WithHmacSHA256"
         val digest = derive(password, salt, algorithm)
         protect(JSONObject().put("username", username.trim()).put("salt", Base64.encodeToString(salt, encoderFlags))
             .put("digest", Base64.encodeToString(digest, encoderFlags)).put("algorithm", algorithm)

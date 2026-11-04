@@ -1,46 +1,123 @@
-# VialGuard IoT avance formativo
+# VialGuard IoT: avance con enlace entre dos Android
 
-Esta es la versión reducida para la formativa. Conserva un recorrido local de Login, Inicio, Estado y Detalle, búsqueda y filtro de estructuras. Las lecturas y los estados son ejemplos académicos. En la primera apertura se crea una cuenta local con una contraseña elegida por el usuario. No autentica contra Firebase.
+Esta versión conserva el recorrido local del avance formativo (acceso, Inicio, Estado, Detalle, búsqueda y filtros) y agrega la pestaña **Enlace**, en la que dos teléfonos Android se comunican por Wi-Fi local:
+
+- **Monitor:** un teléfono recibe las lecturas, muestra el estado y envía órdenes.
+- **Estación:** el otro teléfono simula los sensores de la maqueta y transmite.
+
+Las lecturas son simuladas y el ESP32 todavía no transmite a la app. El acceso es local: la app no autentica contra Firebase.
+
+## Enlace entre dos Android
+
+- **Vinculación:** el monitor abre un receptor TCP en el puerto 8888 y muestra su IP y un código de vinculación de 8 caracteres. La estación se conecta con esos datos.
+- **Envío:** la estación manda una lectura por segundo.
+- **Estado:** se calcula con las mismas reglas del firmware ESP32 de la maqueta:
+  - alarma con 15 cm o 5°;
+  - precaución al 70 % de esos umbrales;
+  - retención de la alarma durante 30 s.
+- **Órdenes del monitor:** «Reconocer alarma», que no la apaga, y «Recalibrar», que se rechaza durante una alarma.
+- **Historial:** el monitor guarda sus eventos en SQLite.
+- **Lecturas antiguas:** una lectura de más de 5 s, o con el enlace caído, se presenta como estado desconocido.
+- **Reconexión:** si se corta el enlace, la estación reconecta sola.
+- **Sesión:** cerrar sesión detiene el enlace.
+
+`ENLACE_WIFI.md` explica el protocolo, por qué se eligió Wi-Fi local y no Firebase, Bluetooth ni MQTT, los límites de seguridad y de uso y cómo hacer la demostración con dos teléfonos o dos emuladores.
 
 ## Seguridad implementada
 
-La contraseña no se guarda. Se deriva un verificador PBKDF2 con sal aleatoria, 600 000 iteraciones y comparación de tiempo constante. En Android 8 o superior se utiliza HMAC-SHA256; en Android 7 se utiliza HMAC-SHA1 por compatibilidad de la plataforma. El registro con verificador y sal se cifra con AES-GCM, mediante una clave creada y administrada por Android Keystore. SharedPreferences contiene el registro cifrado y el IV, no la contraseña ni una clave AES escrita en el código.
+**Cuenta local:**
 
-La creación exige una contraseña de al menos diez caracteres con letras y números. Cinco intentos incorrectos producen un bloqueo local de un minuto, registrado dentro de los datos cifrados. Los errores al descifrar impiden el acceso. La sesión se conserva en memoria, Cerrar sesión la elimina y reiniciar el proceso requiere volver a entrar. Las pantallas de consulta solo se muestran después de autenticar. El manifiesto deshabilita las copias de seguridad y el tráfico HTTP en texto claro.
+- **Contraseña:** no se guarda. Se deriva un verificador PBKDF2-HMAC-SHA256 con sal aleatoria y 600 000 iteraciones, y se compara en tiempo constante.
+- **Registro cifrado:** el registro con el verificador y la sal se cifra con AES-GCM. La clave la crea y administra Android Keystore.
+- **SharedPreferences:** contiene el registro cifrado y el IV; nunca la contraseña ni una clave escrita en el código.
+- **Política de contraseña:** al menos diez caracteres, con letras y números.
+- **Bloqueo:** cinco intentos incorrectos bloquean el acceso durante un minuto.
+- **Sesión:**
+  - vive solo en memoria;
+  - «Cerrar sesión» la elimina;
+  - reiniciar el proceso exige volver a entrar;
+  - las pantallas de consulta y el enlace solo están disponibles con sesión.
 
-Estos son controles concretos del avance, no una certificación de cumplimiento completo de ISO/IEC 27400. No hay roles administrativos ni comunicación inalámbrica implementada en esta versión.
+**Canal del enlace:**
 
-En Android 12 o superior, `data_extraction_rules.xml` excluye explícitamente SharedPreferences de las copias en nube y de las transferencias entre dispositivos. Se conserva `allowBackup=false` y se establece `fullBackupContent=false`. Estas reglas aún requieren comprobarse en dispositivo.
+- **Vinculación:** usa claves ECDH P-256 efímeras. El código se deriva con PBKDF2-HMAC-SHA256 (200 000 iteraciones), cada extremo prueba conocerlo con HMAC-SHA256 y el código nunca viaja por la red.
+- **Mensajes:** van cifrados con AES-256-GCM, con una clave por sentido y un contador como IV. Se rechazan los mensajes alterados, repetidos o reordenados.
+- **Validación:** los valores recibidos se validan aunque el mensaje esté autenticado.
+- **Intentos:** cinco códigos erróneos detienen el receptor, y hay que iniciarlo de nuevo para obtener otro código.
+
+**Copias y red:**
+
+- **Copias de seguridad:** se mantiene `allowBackup=false` y se fija `fullBackupContent=false`.
+- **Android 12 o superior:** `data_extraction_rules.xml` excluye de las copias en nube y de las transferencias entre dispositivos tanto SharedPreferences como la base del historial.
+- **Tráfico HTTP:** el tráfico en texto claro está deshabilitado.
+
+**Permisos:**
+
+- **Manifiesto de la app:** declara solo INTERNET, que el enlace usa para abrir sus sockets.
+- **APK final:** por fusión de manifiestos incluye además ACCESS_NETWORK_STATE y READ_GSERVICES, que agregan las bibliotecas Firebase, y un permiso interno de AndroidX para receptores no exportados.
+- **Sin otros permisos:** no se piden permisos de Bluetooth, ubicación ni exploración Wi-Fi.
+
+Son controles concretos del prototipo, no una certificación de cumplimiento de ISO/IEC 27400. No hay roles: cualquier usuario con sesión en el monitor puede enviar órdenes, y el historial registra quién las envió. En `ENLACE_WIFI.md` se explican los límites del canal: no hay certificados y el código tiene unos 40 bits.
 
 ## Firebase en esta entrega
 
-Se agregaron las bibliotecas oficiales `firebase-auth`, `firebase-firestore` y `firebase-database`, coordinadas por Firebase BoM. Se declaró el complemento Google Services en Gradle. Solo se aplica al módulo cuando existe un `app/google-services.json` real, por lo que el avance local no depende de tener ese archivo para arrancar.
+- **Bibliotecas:** se agregaron las oficiales `firebase-auth`, `firebase-firestore` y `firebase-database`, coordinadas por Firebase BoM.
+- **Complemento Google Services:** se aplica solo si existe un `app/google-services.json` real, así que la app compila y funciona sin ese archivo.
+- **Uso:** agregar bibliotecas no demuestra una conexión. La app no inicia sesión en Firebase ni lee o escribe en sus bases, y el enlace entre teléfonos tampoco usa Firebase.
+- **Configuración:** se explica en `EXPLICACION_PARA_LA_FORMATIVA.md`.
 
-Agregar bibliotecas no demuestra una conexión a Firebase. Este programa todavía no inicia sesión en Firebase ni escribe o recibe datos de sus bases. La configuración y el uso se explican en `EXPLICACION_PARA_LA_FORMATIVA.md`.
+## Funciones que no incluye
 
-## Funciones retiradas del avance
+- **Funciones de gestión:** no hay historial avanzado de estructuras, registro ni eliminación de incidentes, informes, reinicio de estructuras ni funciones administrativas.
+- **ESP32:** no se sincroniza con el ESP32. Los indicadores de conexión del enlace se refieren al otro teléfono, no a sensores reales.
 
-No incluye historial avanzado, registro/eliminación de incidentes, reconocimiento de alertas, informes, reinicio de estructuras, sincronización HTTP con ESP32, sockets entre teléfonos ni funciones administrativas. Tampoco muestra un indicador que afirme conexión activa a sensores.
+## Estructura
 
-Se conservaron los colores y la tipografía del proyecto recibido. `MainActivity.kt` contiene la interfaz, `AvanceViewModel.kt` administra el estado de acceso y `LocalCredentialStore.kt` protege las credenciales locales. La aplicación original en la carpeta `lot (1)` no se modificó.
+`MainActivity.kt` contiene la interfaz principal y las pestañas:
+
+| Archivo | Contenido |
+|---|---|
+| `AvanceViewModel.kt` | Estado de acceso |
+| `LocalCredentialStore.kt` | Protección de credenciales locales |
+| `LinkViewModel.kt` y `LinkScreen.kt` | Pestaña Enlace |
+| `cl.inacap.vialguard.link` | Canal cifrado (`SecureChannel`), mensajes (`LinkMessage`), monitor y estación (`LinkEndpoints`), reglas de alarma (`AlarmEvaluator`) e historial (`EventHistory`) |
+| `app/src/test` | Pruebas unitarias de las reglas de alarma, del canal cifrado y del enlace por TCP local |
 
 ## Abrir y probar
 
-1. Abrir esta carpeta en Android Studio y sincronizar Gradle.
-2. Elegir un emulador o teléfono Android y ejecutar la app.
-3. En la primera apertura, crear una cuenta local. El nombre sugerido es `operador`; la contraseña la elige el usuario y debe cumplir la política mostrada. No existe una contraseña predefinida.
-4. Recorrer Inicio, Estado y Detalle. Probar la búsqueda, los filtros y Cerrar sesión.
-5. Cerrar sesión y comprobar contraseña incorrecta y correcta. Probar cinco intentos incorrectos, esperar un minuto y verificar que permita reintentar. No usar datos ni contraseñas reales para la demostración académica.
-6. Revisar las capturas reales del emulador en `evidencias/` y `RESULTADOS_PRUEBAS.md`. Repetir la demostración en el teléfono que se utilizará en clase.
+1. **Proyecto:** abrir esta carpeta en Android Studio y sincronizar Gradle.
+2. **Cuenta:** instalar la app en un teléfono con Android 8 o superior y, en la primera apertura, crear una cuenta local. El nombre sugerido es `operador`; la contraseña debe cumplir la política que se muestra y no hay una contraseña predefinida.
+3. **Recorrido local:** pasar por Inicio, Estado y Detalle. Probar la búsqueda, los filtros y Cerrar sesión.
+4. **Enlace:** seguir «Demostración con dos teléfonos» de `ENLACE_WIFI.md`. Los teléfonos deben estar en la misma red; si el Wi-Fi del instituto aísla a los clientes, usar el hotspot de uno de ellos.
+5. **Pruebas unitarias:** ejecutar `gradlew testDebugUnitTest`.
+6. **Evidencias:** revisar las capturas de `evidencias/` y `RESULTADOS_PRUEBAS.md`, y repetir la demostración en los teléfonos de clase.
 
-El archivo `local.properties`, si existe en la copia de trabajo, corresponde al SDK instalado en el computador de preparación. No se incluye en el paquete compartible. Android Studio debe crear su propio archivo para el SDK del equipo que abra el proyecto.
+Si en la copia de trabajo existe `local.properties`, apunta al SDK del computador de preparación. No se versiona: Android Studio crea el suyo.
 
 ## Versiones
 
-Se conserva Kotlin 1.9.24 y la configuración Compose recibida. Se fija Firebase BoM 33.1.2 para esa base del proyecto, con bibliotecas principales y sin módulos KTX adicionales. El wrapper usa Gradle 8.6 para Android Gradle Plugin 8.4.1. No se afirma que sean las versiones más recientes.
+| Componente | Versión |
+|---|---|
+| Kotlin | 1.9.24 |
+| Compose | La configuración recibida |
+| Firebase BoM | 33.1.2 |
+| Gradle (wrapper) | 8.6 |
+| Android Gradle Plugin | 8.4.1 |
+| compileSdk y targetSdk | 34 |
+| minSdk | 26 (Android 8) |
 
-## Alcance de la evaluación
+`minSdk` pasó de 24 a 26 porque ambos teléfonos deben derivar las claves con PBKDF2WithHmacSHA256, disponible desde Android 8. No se afirma que sean las versiones más recientes.
 
-La guía general contempla una aplicación con interacción entre dos Android. Para esta formativa, el alcance acordado incluye seguridad implementada, bibliotecas Firebase y justificación de su uso, y Bluetooth/Wi-Fi solo explicados. El avance se ejecutó y se probó en un emulador oficial Android 14, con capturas reales y resultados en `RESULTADOS_PRUEBAS.md`. Quedan pendientes la comprobación en el teléfono de clase, la presentación y la validación ante el docente. La comunicación real y los controles de seguridad de una futura integración en nube corresponden a una etapa posterior; no se declaran implementados ni demostrados.
+## Alcance
 
-Código publicado: https://github.com/alonsocoello7-create/VialGuardIoT-AvanceFormativa
+La guía de la unidad pide que al menos dos dispositivos Android interactúen por Wi-Fi o Bluetooth. Esta versión implementa esa interacción por Wi-Fi local.
+
+Faltan:
+
+- probarla en teléfonos físicos;
+- la demostración en clase;
+- la validación del docente.
+
+`RESULTADOS_PRUEBAS.md` registra qué se verificó y en qué condiciones.
+
+Código publicado: https://github.com/alonsocoello7-create/VialGuardIoT-AvanceFormativa. Esta versión se subió el 4 de noviembre de 2026, y la versión de octubre sigue disponible en el historial del repositorio.

@@ -14,10 +14,11 @@ android {
 
     defaultConfig {
         applicationId = "cl.inacap.vialguard"
-        minSdk = 24
+        // PBKDF2WithHmacSHA256 existe desde Android 8 y ambos teléfonos deben derivar igual la clave del enlace.
+        minSdk = 26
         targetSdk = 34
-        versionCode = 1
-        versionName = "0.2-avance"
+        versionCode = 2
+        versionName = "0.3-enlace"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -75,4 +76,6 @@ dependencies {
     implementation(libs.gson)
 
     debugImplementation(libs.androidx.ui.tooling)
+
+    testImplementation("junit:junit:4.13.2")
 }

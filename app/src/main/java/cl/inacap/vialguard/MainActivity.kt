@@ -31,24 +31,29 @@ private val structures = listOf(
 )
 
 @Composable
-private fun AvanceApp(vm: AvanceViewModel = viewModel()) {
+private fun AvanceApp(vm: AvanceViewModel = viewModel(), link: LinkViewModel = viewModel()) {
     val s by vm.state.collectAsState()
+    // Sin sesión no debe quedar un enlace activo ni datos en pantalla.
+    LaunchedEffect(s.currentUser) {
+        val user = s.currentUser
+        if (user == null) link.stop() else link.setOperator(user)
+    }
     var page by rememberSaveable(s.currentUser) { mutableStateOf("Inicio") }
     var selected by rememberSaveable(s.currentUser) { mutableIntStateOf(0) }
     var query by rememberSaveable { mutableStateOf("") }
     var filter by rememberSaveable { mutableStateOf("Todas") }
     Scaffold(bottomBar = {
         if (s.currentUser != null) NavigationBar {
-            listOf("Inicio", "Estado").forEach { tab ->
+            listOf("Inicio" to "⌂", "Estado" to "≡", "Enlace" to "⇄").forEach { (tab, icon) ->
                 NavigationBarItem(selected = page == tab, onClick = { page = tab },
-                    icon = { Text(if (tab == "Inicio") "⌂" else "≡") }, label = { Text(tab) })
+                    icon = { Text(icon) }, label = { Text(tab) })
             }
         }
     }) { padding ->
         Column(Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState())
             .padding(20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
             Text("VialGuard IoT", style = MaterialTheme.typography.headlineMedium)
-            Text("Avance formativo VialGuard", style = MaterialTheme.typography.titleMedium)
+            Text("Monitoreo vial entre dos Android", style = MaterialTheme.typography.titleMedium)
             if (s.currentUser == null) {
                 Text(if (s.accountExists) "Accede con tu cuenta local protegida." else "Primera apertura: crea tu cuenta local con una contraseña de al menos 10 caracteres, letras y números.")
                 OutlinedTextField(value = s.username, onValueChange = vm::username, label = { Text("Usuario de demostración") }, singleLine = true, modifier = Modifier.fillMaxWidth())
@@ -64,6 +69,7 @@ private fun AvanceApp(vm: AvanceViewModel = viewModel()) {
                 TextButton(onClick = vm::logout, enabled = !s.busy) { Text("Cerrar sesión") }
                 Text("Datos de demostración. No son mediciones de un puente real.")
                 when (page) {
+                    "Enlace" -> LinkScreen(link)
                     "Detalle" -> {
                         TextButton(onClick = { page = "Estado" }) { Text("Volver a Estado") }
                         Text(structures[selected].name, style = MaterialTheme.typography.headlineSmall)
@@ -73,8 +79,8 @@ private fun AvanceApp(vm: AvanceViewModel = viewModel()) {
                             Text("Distancia de ejemplo: 100 cm")
                             Text("Inclinación de ejemplo: 0 grados")
                             Text("Firebase: bibliotecas agregadas. Conexión pendiente de configuración.")
-                            Text("Estas lecturas son de demostración y todavía no provienen del ESP32.")
-                        } else Text("Detalle de ejemplo. Comunicación IoT pendiente.")
+                            Text("Estas lecturas son de demostración. Las lecturas en vivo entre teléfonos están en Enlace.")
+                        } else Text("Detalle de ejemplo. Sin estación vinculada.")
                     }
                     else -> {
                         Text(if (page == "Inicio") "Monitoreo de estructuras viales" else "Estado de estructuras",

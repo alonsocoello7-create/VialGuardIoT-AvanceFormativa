@@ -1,12 +1,12 @@
 # Bosquejo de la interfaz VialGuard
 
-Diseño textual de las pantallas presentes en el avance. Es un bosquejo para revisar con el docente, no una captura de ejecución ni una validación recibida. Se mantiene la interfaz Compose y Material 3 del código.
+Diseño textual de las pantallas de la app. Sirve para revisar con el docente. Las capturas reales están en `evidencias/` y no reemplazan una validación del docente. La interfaz usa Compose y Material 3.
 
 ## Acceso y primera apertura
 
 ```text
 VialGuard IoT
-Avance formativo VialGuard
+Monitoreo vial entre dos Android
 Primera apertura: crea tu cuenta local...
 [ Usuario de demostración: operador     ]
 [ Contraseña: ••••••••••                ]
@@ -17,7 +17,11 @@ Firebase queda pendiente de integración.
 [Mensaje de validación o error]
 ```
 
-Cuando ya existe una cuenta, el botón pasa a «Iniciar sesión». La contraseña se oculta. Durante la operación se deshabilita el botón y se muestra progreso. Las pantallas de consulta aparecen tras autenticar. Cinco fallos producen un bloqueo temporal de un minuto; la app informa del bloqueo al intentar acceder durante ese período.
+- **Cuenta existente:** el botón cambia a «Iniciar sesión».
+- **Contraseña:** se muestra oculta.
+- **Durante la operación:** el botón se deshabilita y aparece una barra de progreso.
+- **Pantallas de consulta:** solo aparecen después de autenticar.
+- **Bloqueo:** cinco fallos bloquean el acceso durante un minuto, y la app lo informa si se intenta entrar en ese período.
 
 ## Inicio
 
@@ -33,10 +37,12 @@ Ejemplos: 1 habilitado, 1 inspección,
 [ Carretera de demostración            ]
 [ Acceso de demostración               ]
 ----------------------------------------
-          Inicio       Estado
+     Inicio       Estado       Enlace
 ```
 
-La búsqueda encuentra coincidencias en nombre o ruta, sin distinguir mayúsculas. Cada tarjeta muestra nombre, tipo, ruta y estado de ejemplo. Tocar una tarjeta abre Detalle. Una búsqueda sin coincidencias muestra «No hay estructuras con ese filtro».
+- **Búsqueda:** encuentra coincidencias en el nombre o la ruta, sin distinguir mayúsculas.
+- **Tarjetas:** cada una muestra nombre, tipo, ruta y estado de ejemplo. Tocarla abre Detalle.
+- **Sin coincidencias:** se muestra «No hay estructuras con ese filtro».
 
 ## Estado
 
@@ -49,10 +55,12 @@ Estado de estructuras
 Resumen global de los tres ejemplos
 [ Tarjetas que cumplen búsqueda/filtro ]
 ----------------------------------------
-          Inicio       Estado
+     Inicio       Estado       Enlace
 ```
 
-El filtro de tipo y la búsqueda se combinan. El resumen numérico corresponde al conjunto completo de ejemplos, no al número de resultados filtrados. «Todas» incluye también Acceso. No representa una conexión activa ni el estado medido de un puente real.
+- **Filtros:** el filtro de tipo y la búsqueda se combinan. «Todas» incluye también Acceso.
+- **Resumen:** las cifras corresponden a los tres ejemplos, no a los resultados filtrados.
+- **Alcance:** las tarjetas de esta pantalla son ejemplos fijos. Las lecturas en vivo están en Enlace.
 
 ## Detalle
 
@@ -67,13 +75,91 @@ Inclinación de ejemplo: 0 grados
 Firebase: bibliotecas agregadas...
 Estas lecturas son de demostración...
 ----------------------------------------
-          Inicio       Estado
+     Inicio       Estado       Enlace
 ```
 
-Las dos lecturas se muestran únicamente en el ejemplo Puente. Las otras tarjetas indican que el detalle es de ejemplo y la comunicación IoT está pendiente. Se puede volver con «Volver a Estado» o con las pestañas inferiores. La interfaz permite desplazamiento vertical para acceder a contenido que no quepa en la pantalla.
+- **Lecturas:** las dos lecturas solo aparecen en el ejemplo Puente. Las demás tarjetas indican que el detalle es de ejemplo.
+- **Volver:** se puede regresar con «Volver a Estado» o con las pestañas inferiores.
+
+## Enlace: elección del rol
+
+```text
+Enlace entre dos teléfonos
+Conecta ambos a la misma red Wi-Fi...
+[Monitor] [Estación]
+Estado del enlace (p. ej. «Enlace detenido.»)
+```
+
+Mientras el enlace está activo, los chips de rol se deshabilitan.
+
+## Enlace: monitor
+
+```text
+[ Iniciar receptor ]
+-- después de iniciar --
+Esperando estación en el puerto 8888.
+┌ Datos para la estación ─────────────┐
+│ IP: 192.168.x.x                      │
+│ Puerto: 8888                         │
+│ Código: ABCD-2345                    │
+│ El código cambia cada vez que...     │
+└──────────────────────────────────────┘
+[ Detener receptor ]
+┌ Puente de demostración ─────────────┐
+│ Estado: Normal | Precaución | Alarma │
+│ Distancia: 100.0 cm (referencia ...) │
+│ Variación: 0.0 cm                    │
+│ Inclinación: 0.0°                    │
+│ Recuperación: N s   (si corresponde) │
+│ Alarma reconocida... (si corresponde)│
+│ Lecturas simuladas por la estación.  │
+└──────────────────────────────────────┘
+[ Reconocer alarma ] [ Recalibrar ]
+Historial
+hh:mm:ss · Estación vinculada.
+hh:mm:ss · Estado Alarma: 79.9 cm, 0.0°
+hh:mm:ss · Orden enviada por operador: ...
+[Aviso: código rechazado, orden enviada...]
+```
+
+- **Lectura reciente:** el estado se muestra en grande, y Alarma en rojo.
+- **Lectura antigua o enlace caído:** si la lectura tiene más de 5 s, o el enlace se cortó, se muestra «Última lectura guardada, hace N s. Estado actual desconocido.».
+- **Reconocer alarma:** solo se habilita con una alarma activa que todavía no se ha reconocido. Reconocerla no la apaga.
+- **Recalibrar:** se deshabilita durante una alarma.
+- **Historial:** registra vinculaciones, cambios de estado, órdenes con el usuario que las envió, intentos rechazados y el agotamiento del código.
+
+## Enlace: estación
+
+```text
+[ IP del monitor: 192.168.x.x[:puerto] ]
+[ Código de vinculación              ]
+[ Conectar ]          (o [ Desconectar ])
+Sensores simulados
+Distancia: 100 cm
+[====●==========================] 2–200 cm
+Inclinación: 0.0°
+[●==============================] 0–30°
+(○) Simular falla de sensor
+Estado calculado: Normal
+Distancia / Variación / Inclinación
+[Aviso: orden recibida, código rechazado...]
+```
+
+- **Datos de conexión:** el código acepta minúsculas y guion. Si la IP no tiene puerto, se usa el 8888.
+- **Referencia:** la posición de los deslizadores al conectar es la referencia inicial, como la calibración del ESP32.
+- **Envío:** la estación manda una lectura por segundo y reconecta sola si se pierde el enlace.
+- **Código rechazado:** si el monitor lo rechaza, la estación deja de intentar y muestra el aviso.
 
 ## Flujo y límites
 
-Primera apertura → crear cuenta local → Inicio → Estado → Detalle → volver a Estado. En posteriores accesos: iniciar sesión → consultar. Cerrar sesión devuelve al acceso. La cuenta local se conserva; la sesión solo vive en memoria. No hay recuperación de contraseña en este avance.
-
-La comunicación futura se explica en `EXPLICACION_PARA_LA_FORMATIVA.md`. No hay botones que envíen órdenes a dispositivos ni indicadores de enlace activo. Carga, pérdida de red y lecturas recibidas de dispositivos son estados de una integración posterior, no comportamientos implementados aquí.
+- **Primera apertura:** crear cuenta local → Inicio → Estado → Detalle → volver a Estado.
+- **Accesos posteriores:** iniciar sesión → consultar.
+- **Enlace:**
+  - Monitor: «Iniciar receptor».
+  - Estación: escribir la IP y el código → «Conectar».
+  - Después: lecturas, órdenes e historial.
+- **Cerrar sesión:** devuelve al acceso y detiene el enlace.
+- **Cuenta y sesión:** la cuenta local se conserva; la sesión solo vive en memoria.
+- **Recuperación de contraseña:** no existe en este avance.
+- **Lecturas simuladas:** las genera el teléfono estación con los deslizadores. El ESP32 todavía no transmite a la app.
+- **Más detalles:** el protocolo, las reglas y los límites del enlace están en `ENLACE_WIFI.md`.

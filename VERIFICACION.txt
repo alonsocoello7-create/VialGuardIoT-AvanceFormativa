@@ -1,10 +1,21 @@
-Compilacion: :app:assembleDebug -> BUILD SUCCESSFUL
-Firma APK: verificada con apksigner, esquema v2.
-ApplicationId: cl.inacap.vialguard; minSdk 24; targetSdk 34.
-APK SHA-256: 50abe8aeed93dd6bc7db9a82e7e0281c101651e0fe1e9af7fd628725840c2008
-Revision estatica: seguridad local presente; sin password predefinida; sin sockets, Bluetooth ni operaciones Firebase.
-SDK Firebase: Authentication, Firestore y Realtime Database agregados.
-Android Lint: 0 errors, 48 warnings; BUILD SUCCESSFUL.
-Reglas explicitas excluyen SharedPreferences de cloud-backup y device-transfer en Android 12+.
-Ejecucion: emulador oficial Android 14 API 34 x86_64; acceso, navegacion y controles locales probados.
-Capturas reales en evidencias/; detalle en RESULTADOS_PRUEBAS.md. Prueba en telefono fisico y validacion docente pendientes.
+Verificación de VialGuard 0.3-enlace (4 de noviembre de 2026)
+
+Compilación: testDebugUnitTest assembleDebug lint -> BUILD SUCCESSFUL, con JDK 17 (Temurin 17.0.20.1), Gradle 8.6, AGP 8.4.1 y Kotlin 1.9.24.
+Pruebas unitarias: 25 de 25 sin fallas (AlarmEvaluatorTest 11, SecureChannelTest 10, LinkEndpointsTest 4).
+Android Lint: 0 errores y 49 advertencias (GradleDependency 22, UnusedResources 19, UseTomlInstead 5, AndroidGradlePluginVersion 3).
+
+APK: app/build/outputs/apk/debug/app-debug.apk, 20 755 281 bytes.
+APK SHA-256: f8b9b1c4b1d7dcff775441037f7a354237860c925eabe165f6e6983c220b9be8
+Firma: verificada con apksigner, esquema v2, clave de depuración.
+ApplicationId: cl.inacap.vialguard; versionCode 2; versionName 0.3-enlace; minSdk 26; targetSdk 34.
+
+Permisos del APK:
+- INTERNET: declarado por la app para el enlace.
+- ACCESS_NETWORK_STATE y READ_GSERVICES: agregados por las bibliotecas Firebase.
+- DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: permiso interno agregado por AndroidX.
+
+Reglas de copia: excluyen SharedPreferences y la base del historial de cloud-backup y device-transfer en Android 12 o superior.
+
+Ejecución: dos emuladores oficiales Android 14 (API 34, x86_64). Se probaron la vinculación, los estados, las órdenes, la retención, la falla de sensor, el corte y la reconexión, el cierre de sesión y los códigos erróneos.
+Evidencias: capturas reales 14 a 33 en evidencias/; detalle en RESULTADOS_PRUEBAS.md.
+Pendientes: prueba en dos teléfonos físicos y validación del docente.
