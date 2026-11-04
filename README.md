@@ -11,10 +11,11 @@ Las lecturas son simuladas y el ESP32 todavía no transmite a la app. El acceso 
 
 - **Vinculación:** el monitor abre un receptor TCP en el puerto 8888 y muestra su IP y un código de vinculación de 8 caracteres. La estación se conecta con esos datos.
 - **Envío:** la estación manda una lectura por segundo.
-- **Estado:** se calcula con las mismas reglas del firmware ESP32 de la maqueta:
-  - alarma con 15 cm o 5°;
+- **Estado:** se calcula con los mismos umbrales del firmware de la maqueta (`VialGuard_ESP32_final`):
+  - alarma con 15 cm o 5°, o con datos no válidos;
   - precaución al 70 % de esos umbrales;
   - retención de la alarma durante 30 s.
+- **Nombres de los estados:** la app dice Normal y Alarma donde la maqueta dice paso habilitado y paso cortado; Precaución se llama igual. El firmware además corta el paso por vibración y registra la causa; la estación no simula vibración ni causas.
 - **Órdenes del monitor:** «Reconocer alarma», que no la apaga, y «Recalibrar», que se rechaza durante una alarma.
 - **Historial:** el monitor guarda sus eventos en SQLite.
 - **Lecturas antiguas:** una lectura de más de 5 s, o con el enlace caído, se presenta como estado desconocido.

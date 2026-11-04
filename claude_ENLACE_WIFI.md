@@ -13,17 +13,27 @@ El ESP32 todavía no participa. Las lecturas de la estación son simuladas y se 
 |---|---|
 | Abre un receptor TCP en el puerto 8888 y muestra su IP y un código de vinculación de 8 caracteres | Se conecta con la IP del monitor y su código |
 | Muestra estado, distancia, variación, inclinación, referencia, validez de los datos y la cuenta de recuperación | Tiene deslizadores de distancia (2–200 cm) e inclinación (0–30°) y un interruptor de falla de sensor |
-| Envía órdenes: «Reconocer alarma» y «Recalibrar» | Evalúa el estado con la misma lógica del firmware ESP32 de la maqueta |
+| Envía órdenes: «Reconocer alarma» y «Recalibrar» | Evalúa el estado con los mismos umbrales del firmware de la maqueta |
 | Distingue una lectura reciente de una lectura antigua o de un enlace caído | Envía una lectura por segundo y reconecta sola si se corta el enlace |
 | Guarda en SQLite los cambios de estado, vinculaciones, rechazos y órdenes (hasta 500 registros) | Recibe las órdenes y responde con su efecto en la siguiente lectura |
 
-Los umbrales de estado son los mismos del programa `ESP32_lista/sketch.ino`:
+Los umbrales son los mismos del firmware vigente de la maqueta, `VialGuard_ESP32_final/sketch.ino`:
 
 - **Alarma:** la distancia varía 15 cm o la inclinación 5° respecto de la referencia, o los datos dejan de ser válidos.
 - **Precaución:** la variación alcanza el 70 % de esos umbrales.
-- **Retención:** la alarma se mantiene hasta acumular 30 s seguidos de lecturas normales.
+- **Retención:** la alarma se mantiene hasta acumular 30 s seguidos de lecturas normales. Una precaución reinicia la cuenta.
 
 Son umbrales didácticos, no criterios de ingeniería estructural.
+
+**Equivalencia con la maqueta:**
+
+| App | Firmware |
+|---|---|
+| Normal | Paso habilitado |
+| Precaución | Precaución |
+| Alarma | Paso cortado |
+
+El firmware además corta el paso por vibración (giro o sacudida del MPU-6050) y registra la causa del corte. La estación no simula vibración ni causas.
 
 ## Reglas de operación
 
@@ -116,7 +126,7 @@ El contenido es JSON y cada valor se valida aunque el mensaje esté autenticado:
 2. **Red:** conectar ambos a la misma red Wi-Fi o al hotspot de uno de ellos.
 3. **Monitor:** en el teléfono A, abrir **Enlace → Monitor → Iniciar receptor** y anotar la IP y el código.
 4. **Estación:** en el teléfono B, abrir **Enlace → Estación**, escribir la IP y el código del monitor y pulsar **Conectar**.
-5. **Estados:** en B, mover la distancia de 100 a 89 cm (precaución) y luego a 80 cm (alarma). En A, comprobar los cambios.
+5. **Estados:** en B, mover la distancia de 100 a 88 cm (precaución) y luego a 80 cm (alarma). En A, comprobar los cambios.
 6. **Órdenes:** en A, pulsar **Reconocer alarma**. Volver B a 100 cm y comprobar que la alarma sigue durante 30 s.
 7. **Falla:** activar la falla de sensor en B y comprobar la alarma en A.
 8. **Corte:** desconectar B o apagar su Wi-Fi. A debe mostrar la última lectura guardada como estado desconocido. Al volver la red, B reconecta sola.

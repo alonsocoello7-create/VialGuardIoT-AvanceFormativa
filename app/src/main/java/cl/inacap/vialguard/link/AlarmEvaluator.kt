@@ -16,9 +16,9 @@ data class Evaluation(
 )
 
 /**
- * Misma lógica que `VialGuard_montaje/ESP32_lista/sketch.ino`: 15 cm o 5° activan la alarma,
- * el 70 % de esos valores activa precaución y la alarma se retiene hasta 30 s de lecturas normales.
- * Los umbrales son didácticos; no son criterios de ingeniería estructural.
+ * Mismos umbrales que el firmware `VialGuard_ESP32_final/sketch.ino`: 15 cm o 5° activan la alarma
+ * (paso cortado), el 70 % activa precaución y la alarma se retiene hasta 30 s de lecturas normales.
+ * La vibración del firmware no se simula. Los umbrales son didácticos, no criterios de ingeniería.
  */
 class AlarmEvaluator(private var baseCm: Double, private var baseDegrees: Double) {
     private var state = AlarmState.NORMAL
